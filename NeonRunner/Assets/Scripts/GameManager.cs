@@ -13,10 +13,6 @@ public class GameManager : MonoBehaviour {
     [Header("Jump Heights")]
     public float[] jumpForce;
 
-    [Header("Player Score")]
-    [SerializeField]
-    private int score;
-
     [Header("Properties")]
     [SerializeField]
     private float bigCircleRadius;
@@ -34,8 +30,12 @@ public class GameManager : MonoBehaviour {
     private int jumps = 0;
     private float currentJumpForce = 0;
     private float spikeHeight;
+    private ScoreManager scoreManager;
 
 
+    void Awake() {
+        scoreManager = gameObject.GetComponent<ScoreManager>();
+    }
 
     void Start() {
         revolutions = bigCircleRadius / smallCircleRadius + 1;
@@ -52,10 +52,12 @@ public class GameManager : MonoBehaviour {
         HandleJumps();
         HandleRevolution(Time.deltaTime);
         HandleSpikes();
-        HandleScore();
     }
 
 
+    /*
+        Places a spike randomly in a given quadrant
+    */
     void PlaceSpike(GameObject spike, int quadrant) {
         float totalRadius = bigCircleRadius + spikeHeight / 2 - 0.01f;
         int randomAngle = Random.Range(quadrant * 90, (quadrant + 1) * 90);
@@ -67,6 +69,9 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    /*
+    
+    */
     void HandleJumps() {
         // User clicks or taps
         if (Input.GetButtonDown("Fire1")) {
@@ -88,6 +93,9 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    /*
+
+    */
     void HandleRevolution(float elapsedTime) {
         currentAngle += 360f * elapsedTime / revolutionSpeed;
         currentAngle = (currentAngle + 360) % 360;
@@ -102,6 +110,9 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    /*
+
+    */
     void HandleSpikes() {
         GameObject[] spikes = GameObject.FindGameObjectsWithTag("Spike");
         foreach (GameObject spike in spikes) {
@@ -123,6 +134,9 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    /*
+        Checks for the distance between the top pixel of the spike and the ball to see if the player has collided with a spike
+    */
     void CheckSpikeCollision(float spikeAngle) {
         float totalSpikeHeight = bigCircleRadius + spikeHeight / 2;
         float radians = spikeAngle * Mathf.Deg2Rad;
@@ -135,17 +149,10 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Collided with spike, score reset");
 
             // Reset Score
-            score = 0;
-            scoreText.text = score.ToString();
+            scoreManager.ResetScore();
+
             // Restart Scene (Replace with GameOver overlay with restart,menu, leaderboard buttons etc)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
-
-    void HandleScore() {
-        if (currentAngle < 90f && currentAngle > 89f) {
-            score++;
-            scoreText.text = score.ToString();
         }
     }
 }
