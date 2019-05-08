@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     [Header("GameObjects")]
     public GameObject player;
     public GameObject spikeObject;
+    public Text scoreText;
 
-    [Header("JumpHeight")]
+    [Header("Jump Heights")]
     public float[] jumpForce;
+
+    [Header("Player Score")]
+    [SerializeField]
+    private int score;
 
     [Header("Properties")]
     [SerializeField]
@@ -46,6 +52,7 @@ public class GameManager : MonoBehaviour {
         HandleJumps();
         HandleRevolution(Time.deltaTime);
         HandleSpikes();
+        HandleScore();
     }
 
 
@@ -61,6 +68,7 @@ public class GameManager : MonoBehaviour {
 
 
     void HandleJumps() {
+        // User clicks or taps
         if (Input.GetButtonDown("Fire1")) {
             if (jumps < 2) {
                 jumps++;
@@ -121,8 +129,23 @@ public class GameManager : MonoBehaviour {
         Vector2 spikeTop = new Vector2(totalSpikeHeight * Mathf.Cos(radians), totalSpikeHeight * Mathf.Sin(radians));
         float minDistance = smallCircleRadius;
         float distance = Vector2.Distance(spikeTop, player.transform.position);
+
+        // Player collided with spike
         if (distance < minDistance) {
+            Debug.Log("Collided with spike, score reset");
+
+            // Reset Score
+            score = 0;
+            scoreText.text = score.ToString();
+            // Restart Scene (Replace with GameOver overlay with restart,menu, leaderboard buttons etc)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    void HandleScore() {
+        if (currentAngle < 90f && currentAngle > 89f) {
+            score++;
+            scoreText.text = score.ToString();
         }
     }
 }
