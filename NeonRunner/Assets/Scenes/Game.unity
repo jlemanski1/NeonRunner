@@ -152,11 +152,10 @@ MonoBehaviour:
   player: {fileID: 1939255184}
   spikeObject: {fileID: 1789576733980392, guid: 44052c752fa5da84ebf0b1813c0e2f98,
     type: 3}
-  scoreText: {fileID: 608251609}
+  scoreManager: {fileID: 557218937}
   jumpForce:
   - 0.12
   - 0.08
-  score: 0
   bigCircleRadius: 2.5
   smallCircleRadius: 0.25
   revolutionSpeed: -5
@@ -270,6 +269,7 @@ GameObject:
   - component: {fileID: 557218939}
   - component: {fileID: 557218938}
   - component: {fileID: 557218937}
+  - component: {fileID: 557218940}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -304,7 +304,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.3, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -315,7 +315,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.42, y: 2.75}
+  m_Size: {x: 0.06, y: 2.75}
   m_EdgeRadius: 0
 --- !u!4 &557218939
 Transform:
@@ -331,6 +331,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &557218940
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557218936}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &608251607
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +730,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 212563195202339878, guid: dc769c5a2197b7847b42af30c84717d8,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 62e5b7c7b9f44444abcf4b3cf487efbd,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc769c5a2197b7847b42af30c84717d8, type: 3}
 --- !u!1 &1939255184 stripped

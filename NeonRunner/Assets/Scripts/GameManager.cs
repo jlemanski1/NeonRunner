@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
     [Header("GameObjects")]
     public GameObject player;
     public GameObject spikeObject;
-    public Text scoreText;
+    public ScoreManager scoreManager;
 
     [Header("Jump Heights")]
     public float[] jumpForce;
@@ -30,12 +30,7 @@ public class GameManager : MonoBehaviour {
     private int jumps = 0;
     private float currentJumpForce = 0;
     private float spikeHeight;
-    private ScoreManager scoreManager;
-
-
-    void Awake() {
-        scoreManager = gameObject.GetComponent<ScoreManager>();
-    }
+    
 
     void Start() {
         revolutions = bigCircleRadius / smallCircleRadius + 1;
