@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-
+    [Header("GameObjects")]
     public GameObject player;
     public GameObject spikeObject;
+
+    [Header("JumpHeight")]
     public float[] jumpForce;
 
+    [Header("Properties")]
     [SerializeField]
     private float bigCircleRadius;
     [SerializeField]
@@ -97,7 +100,7 @@ public class GameManager : MonoBehaviour {
             float spikeAngle = spike.transform.localRotation.eulerAngles.z;
             float angleDiff = Mathf.Abs(Mathf.DeltaAngle(spikeAngle, currentAngle));
 
-            if (angleDiff < 10 && spike.GetComponent<Spike>().isApproaching) {
+            if (angleDiff < 10 && !spike.GetComponent<Spike>().isApproaching) {
                 spike.GetComponent<Spike>().isApproaching = true;
             }
 
